@@ -23,7 +23,7 @@ def _get_post_title(post: dict):
         return title_obj[0].get("plain_text")
 
 
-def search_titles(query: str = "", num_results: int = 10):
+def search_titles(query: str = "", num_results: int = 10) -> list[NotionSearchResult]:
     """
     Search Notion pages by titles
 
@@ -244,7 +244,7 @@ def _block_dict_to_text(block_dict: dict, pos: int = 0) -> str:
     return ""
 
 
-def get_page_blocks(page_id: str, num_blocks: int = 100):
+def get_page_blocks(page_id: str, num_blocks: int = 100) -> list[NotionBlock]:
     """
     Retrieves a list of blocks for a page
 
@@ -264,7 +264,7 @@ def get_page_blocks(page_id: str, num_blocks: int = 100):
     return _get_block_children(page_id, num_blocks)
 
 
-def get_page_text(page_id: str, num_blocks: int = 100):
+def get_page_text(page_id: str, num_blocks: int = 100) -> str:
     """
     Retrieves page content as text
 
@@ -279,7 +279,7 @@ def get_page_text(page_id: str, num_blocks: int = 100):
     return "\n".join(_block_dict_to_text(b, i) for i, b in enumerate(blocks))
 
 
-def create_page(parent_id: str, title: str, content: str):
+def create_page(parent_id: str, title: str, content: str) -> str:
     """
     Create a new page
 
@@ -333,9 +333,11 @@ def create_page(parent_id: str, title: str, content: str):
         return "Something went wrong"
 
 
-def insert_paragraph(parent_id: str, content: str, after_block_id: str | None = None):
+def insert_paragraph(
+    parent_id: str, content: str, after_block_id: str | None = None
+) -> str:
     """
-    Insert a paragraph block as child
+    Insert a paragraph block in a page or another block
 
     Args:
     - parent_id (str): Page or block ID of parent to append the paragraph to
