@@ -58,7 +58,7 @@ def search_titles(query: str = "", num_results: int = 10) -> list[NotionSearchRe
         response = requests.post(
             API_URL + "/search",
             headers={
-                "Authorization": f"Bearer {os.environ["NOTION_INTEGRATION_SECRET"]}",
+                "Authorization": f"Bearer {os.environ['NOTION_INTEGRATION_SECRET']}",
                 "Content-Type": "application/json",
                 "Notion-Version": "2022-06-28",
             },
@@ -103,7 +103,7 @@ def _get_block_children(block_id: str, num_blocks: int = 100):
         response = requests.get(
             url,
             headers={
-                "Authorization": f"Bearer {os.environ["NOTION_INTEGRATION_SECRET"]}",
+                "Authorization": f"Bearer {os.environ['NOTION_INTEGRATION_SECRET']}",
                 "Notion-Version": "2022-06-28",
             },
         )
@@ -320,7 +320,7 @@ def create_page(parent_id: str, title: str, content: str) -> str:
     response = requests.post(
         API_URL + "/pages",
         headers={
-            "Authorization": f"Bearer {os.environ["NOTION_INTEGRATION_SECRET"]}",
+            "Authorization": f"Bearer {os.environ['NOTION_INTEGRATION_SECRET']}",
             "Content-Type": "application/json",
             "Notion-Version": "2022-06-28",
         },
@@ -370,7 +370,7 @@ def insert_paragraph(
     response = requests.patch(
         API_URL + f"/blocks/{parent_id}/children",
         headers={
-            "Authorization": f"Bearer {os.environ["NOTION_INTEGRATION_SECRET"]}",
+            "Authorization": f"Bearer {os.environ['NOTION_INTEGRATION_SECRET']}",
             "Content-Type": "application/json",
             "Notion-Version": "2022-06-28",
         },
