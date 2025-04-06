@@ -1,0 +1,11 @@
+[index]
+
+description = "Tools for interacting with Notion pages"
+
+tools = [
+    "notion.search_titles",
+    "notion.get_page_blocks",
+    "notion.get_page_text",
+    "notion.create_page",
+    "notion.insert_paragraph",
+]
