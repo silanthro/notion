@@ -281,7 +281,7 @@ def get_page_text(page_id: str, num_blocks: int = 100) -> str:
 
 def create_page(parent_id: str, title: str, content: str) -> str:
     """
-    Create a new page
+    Create a new page in an existing page (but not in an existing database)
 
     Args:
     - parent_id (str): Page ID of parent page to append the page to
@@ -337,7 +337,7 @@ def insert_paragraph(
     parent_id: str, content: str, after_block_id: str | None = None
 ) -> str:
     """
-    Insert a paragraph block in a page or another block
+    Insert a paragraph block at the bottom of a page, or after another block
 
     Args:
     - parent_id (str): Page or block ID of parent to append the paragraph to
