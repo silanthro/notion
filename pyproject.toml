@@ -7,3 +7,6 @@ dependencies = [
     "mistletoe>=1.4.0",
     "requests>=2.32.3",
 ]
+
+[tool.setuptools]
+py-modules = ["md2notion", "notion"]
