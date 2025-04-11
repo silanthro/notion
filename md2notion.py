@@ -53,6 +53,7 @@ def spans2text(spans: list[s.SpanToken]):
             # Handle links
             if isinstance(span, (s.AutoLink, s.Link)):
                 for c in children:
+                    c["text"]["link"] = {"url": span.target}
                     c["href"] = span.target
         rich_text += children
         images += child_images
@@ -187,6 +188,10 @@ def md2notion(md: str):
             notion_blocks += quote2notion(child)
         elif isinstance(child, b.Paragraph):
             notion_blocks += paragraph2notion(child)
+        elif isinstance(child, b.CodeFence):
+            notion_blocks += codefence2notion(child)
+        elif isinstance(child, b.BlockCode):
+            notion_blocks += blockcode2notion(child)
         elif isinstance(child, b.List):
             notion_blocks += list2notion(child)
         elif isinstance(child, b.Table):
