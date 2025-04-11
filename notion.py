@@ -5,6 +5,8 @@ from typing import TypedDict
 
 import requests
 
+from md2notion import md2notion
+
 API_URL = "https://api.notion.com/v1"
 
 
@@ -286,7 +288,7 @@ def create_page(parent_id: str, title: str, content: str) -> str:
     Args:
     - parent_id (str): Page ID of parent page to append the page to
     - title (str): Page title
-    - content (str): Page content
+    - content (str): Page content, supports Markdown syntax
 
     Returns:
         If successful, returns "Page created with ID {page_id}"
@@ -301,21 +303,7 @@ def create_page(parent_id: str, title: str, content: str) -> str:
                 "title": [{"type": "text", "text": {"content": title}}],
             }
         },
-        "children": [
-            {
-                "object": "block",
-                "type": "paragraph",
-                "paragraph": {
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {"content": p},
-                        }
-                    ]
-                },
-            }
-            for p in content.split("\n")
-        ],
+        "children": md2notion(content),
     }
     response = requests.post(
         API_URL + "/pages",
@@ -341,30 +329,14 @@ def insert_paragraph(
 
     Args:
     - parent_id (str): Page or block ID of parent to append the paragraph to
-    - content (str): Paragraph content
+    - content (str): Paragraph content, supports Markdown syntax
     - after_block_id (Optional[str]): Append paragraph after this block
 
     Returns:
         If successful, returns "Paragraph inserted with ID {block_id}"
         Else, returns "Something went wrong"
     """
-    data = {
-        "children": [
-            {
-                "object": "block",
-                "type": "paragraph",
-                "paragraph": {
-                    "rich_text": [
-                        {
-                            "type": "text",
-                            "text": {"content": p},
-                        }
-                    ]
-                },
-            }
-            for p in content.split("\n")
-        ]
-    }
+    data = {"children": md2notion(content)}
     if after_block_id:
         data["after"] = after_block_id
     response = requests.patch(

@@ -4,5 +4,6 @@ version = "0.1.0"
 description = "Tools for interacting with Notion pages."
 readme = "README.md"
 dependencies = [
+    "mistletoe>=1.4.0",
     "requests>=2.32.3",
 ]
