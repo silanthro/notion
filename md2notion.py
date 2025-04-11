@@ -179,7 +179,6 @@ def html2notion(block: b.HtmlBlock):
 
 def md2notion(md: str):
     doc = mistletoe.Document(md)
-    print(doc.children[-1].children)
     notion_blocks = []
     for child in doc.children:
         if isinstance(child, b.Heading):
